@@ -37,7 +37,7 @@ namespace DocuWare
             foreach (var document in queryResult.Items)
             {
                 myExport.AddRow();
-                myExport["DWDOCID"] = document.I;
+                myExport["DWDOCID"] = document.Id;
                 Update(document);
             }
 
