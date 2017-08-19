@@ -2,7 +2,6 @@
 using DocuWare.Platform.ServerClient;
 using Jitbit.Utils;
 using System.Collections.Generic;
-using System.IO;
 
 namespace DocuWare
 {
@@ -36,9 +35,15 @@ namespace DocuWare
                 count: count).Result;
             foreach (var document in queryResult.Items)
             {
-                myExport.AddRow();
-                myExport["DWDOCID"] = document.Id;
-                Update(document);
+                if (document["STATUS"].Item.ToString() == "Ready")
+                {
+                    myExport.AddRow();
+                    myExport["DWDOCID"] = document["DWDOCID"];
+                    myExport["DWDOCID"] = document["FIRST_NAME"];
+                    myExport["DWDOCID"] = document["LAST_NAME"];
+                    Update(document);
+                }
+                
             }
 
             myExport.ExportToFile("C:\\Docuware Project\\Import.csv");
